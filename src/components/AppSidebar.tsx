@@ -1,9 +1,17 @@
 import { useAtomValue, useSetAtom } from "jotai";
+import { TrainFrontIcon } from "lucide-react";
 import { lazy, Suspense } from "react";
 
 import { stationAtom } from "@/store/app";
 import type { Station } from "@/types";
 
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@/components/ui/empty";
 import { Sidebar, SidebarContent, SidebarGroup } from "@/components/ui/sidebar";
 import SelectedStation from "./SelectedStation";
 import { Spinner } from "./ui/spinner";
@@ -49,7 +57,19 @@ const AppSidebar = ({ stations }: ILayoutProps) => {
           <SidebarGroup className="p-0">
             <SelectedStation selectedStation={selectedStation} />
           </SidebarGroup>
-        ) : null}
+        ) : (
+          <Empty className="m-2 mt-0 border border-dashed md:m-0">
+            <EmptyHeader>
+              <EmptyMedia variant="icon">
+                <TrainFrontIcon className="text-red-600" />
+              </EmptyMedia>
+              <EmptyTitle>No station selected</EmptyTitle>
+              <EmptyDescription>
+                Start typing in the search bar above to search for a station
+              </EmptyDescription>
+            </EmptyHeader>
+          </Empty>
+        )}
       </SidebarContent>
     </Sidebar>
   );
