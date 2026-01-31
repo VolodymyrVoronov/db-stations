@@ -114,7 +114,7 @@ export default function Autocomplete({
   };
 
   return (
-    <div className="mx-auto w-full max-w-xs rounded-md bg-white dark:bg-slate-900">
+    <div className="mx-auto w-full rounded-md bg-white dark:bg-slate-900">
       <div className="relative">
         <Input
           id="search-input"

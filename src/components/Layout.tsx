@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 
 import type { Station } from "@/types";
 
@@ -13,8 +13,13 @@ export interface ILayoutProps {
 }
 
 const Layout = ({ stations, children }: ILayoutProps) => {
+  const sidebarVars: CSSProperties & Record<string, string> = {
+    "--sidebar-width": "25rem",
+    "--sidebar-width-mobile": "25rem",
+  };
+
   return (
-    <SidebarProvider>
+    <SidebarProvider style={sidebarVars}>
       <AppSidebar stations={stations} />
 
       <main className="bg-accent flex flex-1 flex-col gap-2 p-2">

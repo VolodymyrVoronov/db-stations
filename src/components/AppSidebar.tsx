@@ -1,15 +1,9 @@
-import { useSetAtom, useAtomValue } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 
-import type { Station } from "@/types";
 import { stationAtom } from "@/store/app";
+import type { Station } from "@/types";
 
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarInset,
-} from "@/components/ui/sidebar";
+import { Sidebar, SidebarContent, SidebarGroup } from "@/components/ui/sidebar";
 import Autocomplete from "./Autocomplete";
 import SelectedStation from "./SelectedStation";
 
@@ -30,12 +24,10 @@ const AppSidebar = ({ stations }: ILayoutProps) => {
     setStation(station);
   };
 
-  console.log("selectedStation", selectedStation);
-
   return (
     <Sidebar variant="inset" className="bg-accent">
       <SidebarContent className="bg-accent">
-        <SidebarGroup className="p-0">
+        <SidebarGroup className="md:p-0">
           <Autocomplete
             onSuggestionClick={onSuggestionClick}
             initialValues={stationsNames}
@@ -48,8 +40,6 @@ const AppSidebar = ({ stations }: ILayoutProps) => {
           </SidebarGroup>
         ) : null}
       </SidebarContent>
-
-      {/* <SidebarFooter /> */}
     </Sidebar>
   );
 };
