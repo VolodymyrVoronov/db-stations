@@ -114,9 +114,10 @@ export default function Autocomplete({
   };
 
   return (
-    <div className="mx-auto w-full max-w-xs rounded-md bg-white">
+    <div className="mx-auto w-full max-w-xs rounded-md bg-white dark:bg-slate-900">
       <div className="relative">
         <Input
+          id="search-input"
           type="text"
           placeholder="Search station..."
           value={query}
@@ -129,6 +130,7 @@ export default function Autocomplete({
           aria-autocomplete="list"
           aria-controls="suggestions-list"
           aria-expanded={suggestions.length > 0}
+          name="search"
         />
         <Button
           size="icon"

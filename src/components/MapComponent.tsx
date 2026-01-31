@@ -1,10 +1,12 @@
 import { useAtomValue } from "jotai";
+import { TrainFrontIcon } from "lucide-react";
 
 import { stationAtom } from "@/store/app";
 import type { Station } from "@/types";
 
 import {
   Map,
+  MapLocateControl,
   MapMarker,
   MapPopup,
   MapTileLayer,
@@ -30,10 +32,14 @@ const MapComponent = ({ stations }: IMapComponentProps) => {
     <Map center={[LATITUDE, LONGITUDE]} zoom={6} markerZoomAnimation>
       <MapTileLayer detectRetina />
       <MapZoomControl />
+      <MapLocateControl />
 
       {selectedStation ? (
         <MapSearchControlWrapper coordinates={[latitude, longitude]}>
-          <MapMarker position={[latitude, longitude]}>
+          <MapMarker
+            position={[latitude, longitude]}
+            icon={<TrainFrontIcon className="text-red-600" />}
+          >
             <MapPopup>
               <div className="flex flex-col gap-1">
                 <span className="text-sm font-semibold">

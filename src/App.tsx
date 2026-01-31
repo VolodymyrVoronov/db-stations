@@ -1,16 +1,18 @@
 import { useFetchDBStations } from "./hooks/useFetchDBStations";
 
+import InfoScreen from "./components/InfoScreen";
 import Layout from "./components/Layout";
+import LoadingScreen from "./components/LoadingScreen";
 import MapComponent from "./components/MapComponent";
 
 const App = () => {
   const { stations, isLoading, isError, error } = useFetchDBStations();
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingScreen />;
 
-  if (isError) return <div>Error: {error?.message}</div>;
+  if (isError) return <InfoScreen>Error: {error?.message}</InfoScreen>;
 
-  if (!stations?.length) return <div>No stations found</div>;
+  if (!stations?.length) return <InfoScreen>No stations found</InfoScreen>;
 
   return (
     <Layout stations={stations}>

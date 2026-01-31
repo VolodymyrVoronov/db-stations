@@ -1,10 +1,10 @@
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Button } from "./ui/button";
+import ThemeToggle from "./ThemeToggle";
 
 const SiteHeader = () => {
   return (
-    <header className="flex h-12 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 rounded-md bg-white">
+    <header className="flex h-12 shrink-0 items-center gap-2 rounded-md border-b bg-white transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 dark:bg-slate-900">
       <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
         <SidebarTrigger className="-ml-1" />
 
@@ -15,17 +15,8 @@ const SiteHeader = () => {
 
         <h1 className="text-base font-medium">DB Stations</h1>
 
-        <div className="ml-auto flex items-center gap-2">
-          <Button variant="ghost" asChild size="sm" className="hidden sm:flex">
-            <a
-              href="https://github.com/shadcn-ui/ui/tree/main/apps/v4/app/(examples)/dashboard"
-              rel="noopener noreferrer"
-              target="_blank"
-              className="dark:text-foreground"
-            >
-              GitHub
-            </a>
-          </Button>
+        <div className="ml-auto flex items-center">
+          <ThemeToggle />
         </div>
       </div>
     </header>
