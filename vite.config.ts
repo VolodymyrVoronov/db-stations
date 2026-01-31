@@ -19,4 +19,35 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (/\/react(?:-dom)?/.test(id)) {
+            return "vendor";
+          }
+
+          if (id.includes("leaflet")) {
+            return "leaflet";
+          }
+
+          if (id.includes("tsparticles")) {
+            return "tsparticles";
+          }
+
+          if (id.includes("jotai")) {
+            return "jotai";
+          }
+
+          if (id.includes("framer-motion")) {
+            return "framer-motion";
+          }
+
+          if (id.includes("use-debounce")) {
+            return "use-debounce";
+          }
+        },
+      },
+    },
+  },
 });
