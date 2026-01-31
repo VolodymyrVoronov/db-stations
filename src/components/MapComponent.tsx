@@ -31,8 +31,11 @@ const MapComponent = ({ stations }: IMapComponentProps) => {
   return (
     <Map center={[LATITUDE, LONGITUDE]} zoom={6} markerZoomAnimation>
       <MapTileLayer detectRetina />
-      <MapZoomControl />
-      <MapLocateControl />
+
+      <div className="absolute right-1 bottom-1 z-1000 grid gap-2">
+        <MapLocateControl className="static" />
+        <MapZoomControl className="static" />
+      </div>
 
       {selectedStation ? (
         <MapSearchControlWrapper coordinates={[latitude, longitude]}>
