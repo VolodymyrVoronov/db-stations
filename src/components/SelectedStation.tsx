@@ -37,8 +37,6 @@ export interface ISelectedStationProps {
 }
 
 const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
-  console.log("selectedStation", selectedStation);
-
   if (!selectedStation) return null;
 
   return (
@@ -58,6 +56,7 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
                 <h1 className="text-3xl font-semibold">
                   {selectedStation.name}
                 </h1>
+
                 <p className="text-muted-foreground text-sm">
                   Station ID {selectedStation.id} · RIL {selectedStation.ril100}
                 </p>
@@ -65,6 +64,7 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
 
               <div className="flex gap-2">
                 <Badge>Category {selectedStation.category}</Badge>
+
                 <Badge variant="outline">
                   {selectedStation.productLine.productLine}
                 </Badge>
@@ -82,9 +82,11 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
             {/* Meta badges */}
             <div className="flex flex-wrap gap-2">
               <Badge variant="secondary">{selectedStation.operator.name}</Badge>
+
               <Badge variant="outline">
                 {selectedStation.productLine.segment}
               </Badge>
+
               <Badge variant="outline">
                 {selectedStation.regionalbereich.shortName}
               </Badge>
@@ -122,10 +124,12 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
                 label="Station management"
                 value={selectedStation.stationManagement.name}
               />
+
               <Info
                 label="Control center"
                 value={selectedStation.szentrale.name}
               />
+
               <Info
                 label="Federal state"
                 value={selectedStation.federalState}
@@ -148,6 +152,7 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
                   </span>
                 </a>
               </div>
+
               <div className="flex items-center gap-2">
                 <Phone size={14} />
                 <a

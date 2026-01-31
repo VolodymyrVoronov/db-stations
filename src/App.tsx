@@ -1,9 +1,13 @@
+import { lazy, Suspense } from "react";
+
 import { useFetchDBStations } from "./hooks/useFetchDBStations";
 
 import InfoScreen from "./components/InfoScreen";
 import Layout from "./components/Layout";
 import LoadingScreen from "./components/LoadingScreen";
-import MapComponent from "./components/MapComponent";
+import { Spinner } from "./components/ui/spinner";
+
+const MapComponent = lazy(() => import("./components/MapComponent"));
 
 const App = () => {
   const { stations, isLoading, isError, error } = useFetchDBStations();
@@ -16,7 +20,15 @@ const App = () => {
 
   return (
     <Layout stations={stations}>
-      <MapComponent stations={stations} />
+      <Suspense
+        fallback={
+          <div className="flex h-full w-full items-center justify-center">
+            <Spinner />
+          </div>
+        }
+      >
+        <MapComponent stations={stations} />
+      </Suspense>
     </Layout>
   );
 };
