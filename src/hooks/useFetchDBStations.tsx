@@ -12,8 +12,16 @@ export const useFetchDBStations = () => {
     queryFn: fetchDBStations,
   });
 
+  if (!stations) return { stations, isLoading, isError, error };
+
+  const processedStations = Array.from(
+    new Map(
+      Object.values(stations).map((station) => [station.id, station]),
+    ).values(),
+  );
+
   return {
-    stations,
+    stations: processedStations,
     isLoading,
     isError,
     error,
