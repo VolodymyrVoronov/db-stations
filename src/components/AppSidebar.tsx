@@ -13,7 +13,13 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
-import { Sidebar, SidebarContent, SidebarGroup } from "@/components/ui/sidebar";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarTrigger,
+  useSidebar,
+} from "@/components/ui/sidebar";
 import SelectedStation from "./SelectedStation";
 import { Spinner } from "./ui/spinner";
 
@@ -25,6 +31,7 @@ export interface ILayoutProps {
 
 const AppSidebar = ({ stations }: ILayoutProps) => {
   const { t } = useTranslation();
+  const { isMobile } = useSidebar();
 
   const station = useAtomValue(stationAtom);
   const setStation = useSetAtom(stationAtom);
@@ -49,10 +56,19 @@ const AppSidebar = ({ stations }: ILayoutProps) => {
               </div>
             }
           >
-            <Autocomplete
-              onSuggestionClick={onSuggestionClick}
-              initialValues={stationsNames}
-            />
+            <div className="flex items-center gap-2">
+              <Autocomplete
+                onSuggestionClick={onSuggestionClick}
+                initialValues={stationsNames}
+              />
+
+              {isMobile ? (
+                <SidebarTrigger
+                  className="size-12 rounded-md shadow-none"
+                  variant="outline"
+                />
+              ) : null}
+            </div>
           </Suspense>
         </SidebarGroup>
 
