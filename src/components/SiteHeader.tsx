@@ -1,6 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import ThemeToggle from "./ThemeToggle";
+import { LanguageSwitcher } from "./LanguageSwitcher";
 
 const SiteHeader = () => {
   return (
@@ -15,7 +16,8 @@ const SiteHeader = () => {
 
         <h1 className="text-base font-medium">DB Stations</h1>
 
-        <div className="ml-auto flex items-center">
+        <div className="ml-auto flex flex-row items-center gap-2">
+          <LanguageSwitcher />
           <ThemeToggle />
         </div>
       </div>

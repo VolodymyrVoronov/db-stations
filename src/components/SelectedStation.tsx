@@ -115,7 +115,7 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
             <Separator />
 
             {/* Amenities */}
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
               {AMENITIES.map(({ key, label, icon: Icon, yesNo }) => {
                 const raw = selectedStation[key as keyof Station];
                 const active = yesNo ? raw === "yes" : Boolean(raw);
