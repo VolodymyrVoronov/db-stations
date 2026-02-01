@@ -3,6 +3,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
 import { ThemeProvider } from "./providers/theme-provider.tsx";
+import "./i18n";
 
 import App from "./App.tsx";
 

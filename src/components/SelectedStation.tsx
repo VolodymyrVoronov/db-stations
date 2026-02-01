@@ -12,6 +12,7 @@ import {
   Train,
   Wifi,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import type { Station } from "@/types";
 
@@ -22,13 +23,25 @@ import Info from "./Info";
 import { Button } from "./ui/button";
 
 const AMENITIES = [
-  { key: "hasParking", label: "Parking", icon: ParkingSquare },
-  { key: "hasBicycleParking", label: "Bike parking", icon: Bike },
-  { key: "hasWiFi", label: "WiFi", icon: Wifi },
-  { key: "hasPublicFacilities", label: "Public facilities", icon: Building2 },
+  {
+    key: "hasParking",
+    label: "selected.station.amenity.parking",
+    icon: ParkingSquare,
+  },
+  {
+    key: "hasBicycleParking",
+    label: "selected.station.amenity.bicycleParking",
+    icon: Bike,
+  },
+  { key: "hasWiFi", label: "selected.station.amenity.wiFi", icon: Wifi },
+  {
+    key: "hasPublicFacilities",
+    label: "selected.station.amenity.publicFacilities",
+    icon: Building2,
+  },
   {
     key: "hasSteplessAccess",
-    label: "Step‑free access",
+    label: "selected.station.amenity.steplessAccess",
     icon: Accessibility,
     yesNo: true,
   },
@@ -39,6 +52,8 @@ export interface ISelectedStationProps {
 }
 
 const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
+  const { t } = useTranslation();
+
   if (!selectedStation) return null;
 
   return (
@@ -60,12 +75,15 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
                 </h1>
 
                 <p className="text-muted-foreground text-sm">
-                  Station ID {selectedStation.id} · RIL {selectedStation.ril100}
+                  {t("selected.station.id")} {selectedStation.id} ·{" "}
+                  {t("selected.station.ril")} {selectedStation.ril100}
                 </p>
               </div>
 
               <div className="flex gap-2">
-                <Badge>Category {selectedStation.category}</Badge>
+                <Badge>
+                  {t("selected.station.category")} {selectedStation.category}
+                </Badge>
 
                 <Badge variant="outline">
                   {selectedStation.productLine.productLine}
@@ -112,7 +130,7 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
                     }`}
                   >
                     <Icon size={16} />
-                    {label}
+                    {t(label)}
                   </div>
                 );
               })}
@@ -123,20 +141,23 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
             {/* Operational info */}
             <div className="grid gap-4 text-sm sm:grid-cols-2">
               <Info
-                label="Station management"
+                label={t("selected.station.management")}
                 value={selectedStation.stationManagement.name}
               />
 
               <Info
-                label="Control center"
+                label={t("selected.station.controlCenter")}
                 value={selectedStation.szentrale.name}
               />
 
               <Info
-                label="Federal state"
+                label={t("selected.station.federalState")}
                 value={selectedStation.federalState}
               />
-              <Info label="Weight" value={`${selectedStation.weight}`} />
+              <Info
+                label={t("selected.station.weight")}
+                value={`${selectedStation.weight}`}
+              />
             </div>
 
             {/* Contact */}
@@ -177,7 +198,7 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
                 asChild
                 variant="outline"
                 size="icon-sm"
-                title="Open in Google Maps"
+                title={t("selected.station.googleMaps")}
                 className="border-sky-600 text-sky-600! hover:bg-sky-600/10 focus-visible:border-sky-600 focus-visible:ring-sky-600/20 dark:border-sky-400 dark:text-sky-400! dark:hover:bg-sky-400/10 dark:focus-visible:border-sky-400 dark:focus-visible:ring-sky-400/40"
               >
                 <a

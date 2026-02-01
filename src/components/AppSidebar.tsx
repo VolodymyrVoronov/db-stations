@@ -1,6 +1,7 @@
 import { useAtomValue, useSetAtom } from "jotai";
 import { TrainFrontIcon } from "lucide-react";
 import { lazy, Suspense } from "react";
+import { useTranslation } from "react-i18next";
 
 import { stationAtom } from "@/store/app";
 import type { Station } from "@/types";
@@ -23,6 +24,8 @@ export interface ILayoutProps {
 }
 
 const AppSidebar = ({ stations }: ILayoutProps) => {
+  const { t } = useTranslation();
+
   const station = useAtomValue(stationAtom);
   const setStation = useSetAtom(stationAtom);
 
@@ -63,9 +66,9 @@ const AppSidebar = ({ stations }: ILayoutProps) => {
               <EmptyMedia variant="icon">
                 <TrainFrontIcon className="text-red-600" />
               </EmptyMedia>
-              <EmptyTitle>No station selected</EmptyTitle>
+              <EmptyTitle>{t("sidebar.empty.title")}</EmptyTitle>
               <EmptyDescription>
-                Start typing in the search bar above to search for a station
+                {t("sidebar.empty.description")}
               </EmptyDescription>
             </EmptyHeader>
           </Empty>

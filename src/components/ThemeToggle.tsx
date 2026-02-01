@@ -1,4 +1,5 @@
 import { Moon, Sun } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 import { useTheme } from "@/hooks/useTheme";
 import { cn } from "@/lib/utils";
@@ -13,6 +14,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const ThemeToggle = () => {
+  const { t } = useTranslation();
+
   const { theme, setTheme } = useTheme();
 
   const onMenuItemClick = (value: Theme) => setTheme(value);
@@ -25,7 +28,7 @@ const ThemeToggle = () => {
         <Button variant="outline" size="icon-sm">
           <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
           <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
-          <span className="sr-only">Toggle theme</span>
+          <span className="sr-only">{t("theme.toggle")}</span>
         </Button>
       </DropdownMenuTrigger>
 
@@ -36,7 +39,7 @@ const ThemeToggle = () => {
             "bg-accent": isCurrentlySelected("light"),
           })}
         >
-          Light
+          {t("theme.light")}
         </DropdownMenuItem>
 
         <DropdownMenuItem
@@ -45,7 +48,7 @@ const ThemeToggle = () => {
             "bg-accent": isCurrentlySelected("dark"),
           })}
         >
-          Dark
+          {t("theme.dark")}
         </DropdownMenuItem>
 
         <DropdownMenuItem
@@ -54,7 +57,7 @@ const ThemeToggle = () => {
             "bg-accent": isCurrentlySelected("system"),
           })}
         >
-          System
+          {t("theme.system")}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -1,5 +1,6 @@
 import { Search } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useDebounce } from "use-debounce";
 
 import { Button } from "@/components/ui/button";
@@ -32,6 +33,7 @@ export default function Autocomplete({
   onChange,
   onSuggestionClick,
 }: IAutoCompleteProps) {
+  const { t } = useTranslation<"common">();
   const [query, setQuery] = useState(value);
   const [debouncedQuery] = useDebounce(query, 300);
   const [suggestions, setSuggestions] = useState<string[]>([]);
@@ -119,7 +121,7 @@ export default function Autocomplete({
         <Input
           id="search-input"
           type="text"
-          placeholder="Search station..."
+          placeholder={t("autocomplete.placeholder")}
           value={query}
           onChange={handleInputChange}
           onKeyDown={handleKeyDown}
@@ -148,7 +150,7 @@ export default function Autocomplete({
           className="bg-background absolute z-10 mt-2 rounded-md border p-2"
           aria-live="polite"
         >
-          Loading...
+          {t("autocomplete.loading")}
         </div>
       )}
 
