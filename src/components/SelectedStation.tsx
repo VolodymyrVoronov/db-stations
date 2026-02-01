@@ -3,6 +3,7 @@ import {
   Accessibility,
   Bike,
   Building2,
+  ExternalLinkIcon,
   Layers,
   Mail,
   MapPin,
@@ -18,6 +19,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import Info from "./Info";
+import { Button } from "./ui/button";
 
 const AMENITIES = [
   { key: "hasParking", label: "Parking", icon: ParkingSquare },
@@ -48,7 +50,7 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
         exit={{ opacity: 0, y: 16 }}
         transition={{ duration: 0.2 }}
       >
-        <Card className="rounded-md">
+        <Card className="w-full rounded-md">
           <CardContent className="space-y-3 p-6">
             {/* Header */}
             <div className="flex flex-wrap items-start justify-between gap-4">
@@ -95,7 +97,7 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
             <Separator />
 
             {/* Amenities */}
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
               {AMENITIES.map(({ key, label, icon: Icon, yesNo }) => {
                 const raw = selectedStation[key as keyof Station];
                 const active = yesNo ? raw === "yes" : Boolean(raw);
@@ -103,7 +105,7 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
                 return (
                   <div
                     key={key}
-                    className={`flex items-center gap-2 rounded-xl border p-3 text-sm ${
+                    className={`grid grid-cols-[auto_1fr] items-center gap-2 rounded-xl border p-3 text-sm ${
                       active
                         ? "border-green-200 bg-green-50 text-green-700 dark:border-green-800 dark:bg-green-800 dark:text-green-50"
                         : "bg-muted text-muted-foreground"
@@ -139,7 +141,7 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
 
             {/* Contact */}
             <div className="bg-muted space-y-2 rounded-2xl p-4 text-sm">
-              <div className="flex items-center gap-2">
+              <div className="grid grid-cols-[auto_1fr] items-center gap-2">
                 <Mail size={14} />
                 <a
                   href={`mailto:${selectedStation.timeTableOffice.email}`}
@@ -153,7 +155,7 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
                 </a>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="grid grid-cols-[auto_1fr] items-center gap-2">
                 <Phone size={14} />
                 <a
                   href={`tel:${selectedStation.szentrale.publicPhoneNumber}`}
@@ -167,10 +169,25 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
             </div>
 
             {/* Coordinates preview */}
-            <div className="flex items-center gap-3 rounded-2xl border p-4 text-sm">
+            <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 rounded-2xl border p-4 text-sm">
               <Layers size={16} />
               Lat {selectedStation.location.latitude} · Lng{" "}
               {selectedStation.location.longitude}
+              <Button
+                asChild
+                variant="outline"
+                size="icon-sm"
+                title="Open in Google Maps"
+                className="border-sky-600 text-sky-600! hover:bg-sky-600/10 focus-visible:border-sky-600 focus-visible:ring-sky-600/20 dark:border-sky-400 dark:text-sky-400! dark:hover:bg-sky-400/10 dark:focus-visible:border-sky-400 dark:focus-visible:ring-sky-400/40"
+              >
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${selectedStation.location.latitude},${selectedStation.location.longitude}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ExternalLinkIcon size={16} />
+                </a>
+              </Button>
             </div>
 
             <div className="text-muted-foreground flex items-center gap-2 pt-2 text-sm">
