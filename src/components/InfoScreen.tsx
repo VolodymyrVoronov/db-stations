@@ -1,14 +1,22 @@
 import { type ReactNode } from "react";
 
+import { cn } from "@/lib/utils";
+
 import { SparklesCore } from "./ui/sparkles";
 
 export interface IInfoScreenProps {
+  className?: string;
   children?: ReactNode;
 }
 
-const InfoScreen = ({ children }: IInfoScreenProps) => {
+const InfoScreen = ({ className, children }: IInfoScreenProps) => {
   return (
-    <div className="flex h-svh w-full flex-col items-center justify-center overflow-hidden bg-black">
+    <div
+      className={cn(
+        "flex h-svh w-full flex-col items-center justify-center overflow-hidden bg-black",
+        className,
+      )}
+    >
       <div className="absolute inset-0 h-screen w-full">
         <SparklesCore
           id="tsparticlesfullpage"

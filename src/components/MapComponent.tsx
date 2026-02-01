@@ -1,5 +1,6 @@
 import { useAtomValue } from "jotai";
 import { TrainFrontIcon } from "lucide-react";
+import { ErrorBoundary } from "react-error-boundary";
 
 import { stationAtom } from "@/store/app";
 import type { Station } from "@/types";
@@ -12,6 +13,7 @@ import {
   MapTileLayer,
   MapZoomControl,
 } from "@/components/ui/map";
+import MapError from "./MapError";
 import MapSearchControlWrapper from "./MapSearchControlWrapper";
 
 export interface IMapComponentProps {
@@ -29,37 +31,39 @@ const MapComponent = ({ stations }: IMapComponentProps) => {
     selectedStation?.location || {};
 
   return (
-    <Map center={[LATITUDE, LONGITUDE]} zoom={6} markerZoomAnimation>
-      <MapTileLayer detectRetina />
+    <ErrorBoundary fallback={<MapError />} resetKeys={[selectedStation?.name]}>
+      <Map center={[LATITUDE, LONGITUDE]} zoom={6} markerZoomAnimation>
+        <MapTileLayer detectRetina />
 
-      <div className="absolute right-1 bottom-1 z-1000 grid gap-2">
-        <MapLocateControl className="static" />
-        <MapZoomControl className="static" />
-      </div>
+        <div className="absolute right-1 bottom-1 z-1000 grid gap-2">
+          <MapLocateControl className="static" />
+          <MapZoomControl className="static" />
+        </div>
 
-      {selectedStation ? (
-        <MapSearchControlWrapper coordinates={[latitude, longitude]}>
-          <MapMarker
-            position={[latitude, longitude]}
-            icon={<TrainFrontIcon className="text-red-600" />}
-          >
-            <MapPopup>
-              <div className="flex flex-col gap-1">
-                <span className="text-sm font-semibold">
-                  {selectedStation?.name}
-                </span>
-                <span>
-                  {selectedStation?.address?.zipcode}{" "}
-                  {selectedStation?.address?.city}
-                </span>
-                <span>{selectedStation?.address?.street}</span>
-                <span>{selectedStation?.federalState}</span>
-              </div>
-            </MapPopup>
-          </MapMarker>
-        </MapSearchControlWrapper>
-      ) : null}
-    </Map>
+        {selectedStation ? (
+          <MapSearchControlWrapper coordinates={[latitude, longitude]}>
+            <MapMarker
+              position={[latitude, longitude]}
+              icon={<TrainFrontIcon className="text-red-600" />}
+            >
+              <MapPopup>
+                <div className="flex flex-col gap-1">
+                  <span className="text-sm font-semibold">
+                    {selectedStation?.name}
+                  </span>
+                  <span>
+                    {selectedStation?.address?.zipcode}{" "}
+                    {selectedStation?.address?.city}
+                  </span>
+                  <span>{selectedStation?.address?.street}</span>
+                  <span>{selectedStation?.federalState}</span>
+                </div>
+              </MapPopup>
+            </MapMarker>
+          </MapSearchControlWrapper>
+        ) : null}
+      </Map>
+    </ErrorBoundary>
   );
 };
 
