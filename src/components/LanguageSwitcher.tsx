@@ -1,14 +1,14 @@
-import { Globe, Check } from "lucide-react";
-import { useTranslation } from "react-i18next";
+import { Check } from "lucide-react";
 import ReactCountryFlag from "react-country-flag";
+import { useTranslation } from "react-i18next";
 
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 
 export const LANGUAGES = [
   { code: "en", label: "English", flag: "GB" },
@@ -27,11 +27,18 @@ export function LanguageSwitcher() {
   const { i18n } = useTranslation();
   const current = i18n.language;
 
+  const currentLang =
+    LANGUAGES.find((lang) => lang.code === current) ?? LANGUAGES[0];
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon-sm">
-          <Globe className="h-4 w-4" />
+          <ReactCountryFlag
+            countryCode={currentLang.flag}
+            svg
+            style={{ width: "1.5em", height: "1.5em" }}
+          />
         </Button>
       </DropdownMenuTrigger>
 
