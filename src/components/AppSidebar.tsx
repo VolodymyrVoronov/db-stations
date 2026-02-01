@@ -20,8 +20,9 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
-import SelectedStation from "./SelectedStation";
 import { Spinner } from "./ui/spinner";
+
+const SelectedStation = lazy(() => import("./SelectedStation"));
 
 const Autocomplete = lazy(() => import("./Autocomplete"));
 
@@ -73,9 +74,17 @@ const AppSidebar = ({ stations }: ILayoutProps) => {
         </SidebarGroup>
 
         {selectedStation ? (
-          <SidebarGroup className="p-0">
-            <SelectedStation selectedStation={selectedStation} />
-          </SidebarGroup>
+          <Suspense
+            fallback={
+              <div className="flex h-full w-full items-center justify-center">
+                <Spinner />
+              </div>
+            }
+          >
+            <SidebarGroup className="p-0">
+              <SelectedStation selectedStation={selectedStation} />
+            </SidebarGroup>
+          </Suspense>
         ) : (
           <Empty className="m-2 mt-0 border border-dashed md:m-0">
             <EmptyHeader>
