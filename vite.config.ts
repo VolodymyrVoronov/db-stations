@@ -23,10 +23,6 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: (id) => {
-          if (/\/react(?:-dom)?/.test(id)) {
-            return "vendor";
-          }
-
           if (id.includes("leaflet")) {
             return "leaflet";
           }
