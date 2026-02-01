@@ -6,7 +6,7 @@ import InfoScreen from "./InfoScreen";
 import { Button } from "./ui/button";
 
 const MapError = () => {
-  const { t } = useTranslation("common");
+  const { t } = useTranslation();
 
   const { resetBoundary } = useErrorBoundary();
 
