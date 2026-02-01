@@ -65,7 +65,7 @@ const SelectedStation = ({ selectedStation }: ISelectedStationProps) => {
         exit={{ opacity: 0, y: 16 }}
         transition={{ duration: 0.2 }}
       >
-        <Card className="w-full rounded-md">
+        <Card className="m-2 mt-0 w-auto rounded-md md:m-0">
           <CardContent className="space-y-3 p-6">
             {/* Header */}
             <div className="flex flex-wrap items-start justify-between gap-4">
