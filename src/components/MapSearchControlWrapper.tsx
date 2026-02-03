@@ -1,9 +1,9 @@
-import type { LatLngExpression } from "leaflet";
 import { useEffect, type ReactNode } from "react";
-import { useMap } from "react-leaflet";
+
+import { useMap } from "./ui/map";
 
 export interface IMapSearchControlWrapperProps {
-  coordinates: LatLngExpression;
+  coordinates: [number, number];
 
   children: ReactNode;
 }
@@ -13,14 +13,18 @@ const MapSearchControlWrapper = ({
 
   children,
 }: IMapSearchControlWrapperProps) => {
-  const map = useMap();
+  const { map, isLoaded } = useMap();
 
   useEffect(() => {
     if (!coordinates) return;
 
-    map.panTo(coordinates);
-    map.setView(coordinates, 15);
-  }, [map, coordinates]);
+    if (!isLoaded || !map) return;
+
+    map.flyTo({
+      center: coordinates,
+      zoom: 15,
+    });
+  }, [map, coordinates, isLoaded]);
 
   return children;
 };
