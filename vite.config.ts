@@ -38,6 +38,10 @@ export default defineConfig({
           if (id.includes("use-debounce")) {
             return "use-debounce";
           }
+
+          if (id.includes("maplibre-gl")) {
+            return "maplibre-gl";
+          }
         },
       },
     },

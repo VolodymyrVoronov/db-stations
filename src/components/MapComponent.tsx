@@ -7,11 +7,10 @@ import type { Station } from "@/types";
 
 import {
   Map,
-  MapLocateControl,
+  MapControls,
   MapMarker,
-  MapPopup,
-  MapTileLayer,
-  MapZoomControl,
+  MarkerContent,
+  MarkerPopup,
 } from "@/components/ui/map";
 import MapError from "./MapError";
 import MapSearchControlWrapper from "./MapSearchControlWrapper";
@@ -27,27 +26,22 @@ const MapComponent = ({ stations }: IMapComponentProps) => {
   const station = useAtomValue(stationAtom);
 
   const selectedStation = stations?.find((s) => s.name === station);
-  const { latitude = LATITUDE, longitude = LONGITUDE } =
+  const { longitude = LONGITUDE, latitude = LATITUDE } =
     selectedStation?.location || {};
 
   return (
     <ErrorBoundary fallback={<MapError />} resetKeys={[selectedStation?.name]}>
-      <Map center={[LATITUDE, LONGITUDE]} zoom={6} markerZoomAnimation>
-        <MapTileLayer detectRetina />
-
-        <div className="absolute right-1 bottom-1 z-1000 grid gap-2">
-          <MapLocateControl className="static" />
-          <MapZoomControl className="static" />
-        </div>
+      <Map center={[LONGITUDE, LATITUDE]} zoom={6}>
+        <MapControls showZoom showLocate showCompass showFullscreen />
 
         {selectedStation ? (
-          <MapSearchControlWrapper coordinates={[latitude, longitude]}>
-            <MapMarker
-              position={[latitude, longitude]}
-              icon={<TrainFrontIcon className="text-red-600" />}
-            >
-              <MapPopup>
-                <div className="flex flex-col gap-1">
+          <MapSearchControlWrapper coordinates={[longitude, latitude]}>
+            <MapMarker longitude={longitude} latitude={latitude}>
+              <MarkerContent>
+                <TrainFrontIcon className="text-red-600" />
+              </MarkerContent>
+              <MarkerPopup closeButton className="w-auto px-6">
+                <div className="flex flex-col gap-1 text-center">
                   <span className="text-sm font-semibold">
                     {selectedStation?.name}
                   </span>
@@ -58,7 +52,7 @@ const MapComponent = ({ stations }: IMapComponentProps) => {
                   <span>{selectedStation?.address?.street}</span>
                   <span>{selectedStation?.federalState}</span>
                 </div>
-              </MapPopup>
+              </MarkerPopup>
             </MapMarker>
           </MapSearchControlWrapper>
         ) : null}
